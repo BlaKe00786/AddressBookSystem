@@ -52,7 +52,23 @@ namespace AddressBookSystemProject
                     dict.Value.PhoneNumber = Console.ReadLine();
                     Console.WriteLine("Enter Email : ");
                     dict.Value.Email = Console.ReadLine();
-
+                }
+            }
+            if(flag==1)
+            {
+                Console.WriteLine("Contact not found!");
+            }
+        }
+        public void DeleteContact(string FirstName)
+        {
+            int flag = 1;
+            foreach (KeyValuePair<string, Contacts> dict in dictionary)
+            {
+                if (FirstName.Equals(dict.Key))
+                {
+                    flag = 0;
+                    dictionary.Remove(FirstName);
+                    Console.WriteLine("Successfully Deleted!");
                 }
             }
             if(flag==1)

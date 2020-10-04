@@ -31,5 +31,6 @@ namespace AddressBookSystemProject
         public void AddContact(string FirstName, string LastName, string Address, string City, string State, string Zip, string PhoneNumber, string Email);
         public void DisplayContacts();
         public void EditContact(string FirstName);
+        public void DeleteContact(string FirstName);
     }
 }

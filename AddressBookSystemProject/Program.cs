@@ -7,11 +7,11 @@ namespace AddressBookSystemProject
         {
             int choice;
             AddressBookBuilder addressBookBuilder = new AddressBookBuilder();
-            string FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email,NametoSearch;
+            string FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email,NameToSearch,NameToDelete;
             Console.WriteLine("Welcome to Address Book System \n Enter your choice:");
             while (true)
             {
-                Console.WriteLine(" \n 1. Add Contact \n 2. Display Contacts \n 3.Edit Existing Contact \n 4.Exit");
+                Console.WriteLine(" \n 1. Add Contact \n 2. Display Contacts \n 3. Edit Existing Contact \n 4. Delete a contact \n 5.Exit");
                 choice= Convert.ToInt32(Console.ReadLine());
                 switch(choice)
                 {
@@ -39,10 +39,15 @@ namespace AddressBookSystemProject
                         break;
                     case 3:
                         Console.WriteLine("Enter Contact First Name to edit details: ");
-                        NametoSearch = Console.ReadLine();
-                        addressBookBuilder.EditContact(NametoSearch);
+                        NameToSearch = Console.ReadLine();
+                        addressBookBuilder.EditContact(NameToSearch);
                         break;
                     case 4:
+                        Console.WriteLine("Enter Contact First Name to delete contact: ");
+                        NameToDelete = Console.ReadLine();
+                        addressBookBuilder.DeleteContact(NameToDelete);
+                        break;
+                    case 5:
                         Environment.Exit(0);
                         break;
                     default:
