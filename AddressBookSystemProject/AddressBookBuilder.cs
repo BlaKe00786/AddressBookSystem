@@ -28,7 +28,36 @@ namespace AddressBookSystemProject
                 Console.WriteLine("Zip : " + dict.Value.Zip);
                 Console.WriteLine("Phone Number : " + dict.Value.PhoneNumber);
                 Console.WriteLine("Email : " + dict.Value.Email);
-                //textBox3.Text += string.Format("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+            }
+        }
+        public void EditContact(string FirstName)
+        {
+            int flag = 1;
+            foreach (KeyValuePair<string, Contacts> dict in dictionary)
+            {
+                if(FirstName.Equals(dict.Key))
+                {
+                    flag = 0;
+                    Console.WriteLine("Enter Last Name : ");
+                    dict.Value.LastName = Console.ReadLine();
+                    Console.WriteLine("Enter Address: ");
+                    dict.Value.Address = Console.ReadLine();
+                    Console.WriteLine("Enter City : ");
+                    dict.Value.City = Console.ReadLine();
+                    Console.WriteLine("Enter State : ");
+                    dict.Value.State = Console.ReadLine();
+                    Console.WriteLine("Enter Zip code : ");
+                    dict.Value.Zip = Console.ReadLine();
+                    Console.WriteLine("Enter Phone Number : ");
+                    dict.Value.PhoneNumber = Console.ReadLine();
+                    Console.WriteLine("Enter Email : ");
+                    dict.Value.Email = Console.ReadLine();
+
+                }
+            }
+            if(flag==1)
+            {
+                Console.WriteLine("Contact not found!");
             }
         }
     }
