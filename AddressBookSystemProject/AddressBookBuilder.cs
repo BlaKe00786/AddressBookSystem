@@ -118,6 +118,16 @@ namespace AddressBookSystemProject
             }
             return personsFounded;
         }
+        public int findNumberOfPersonsInCity(string place)
+        {
+            int numberOfPersonsFound = contactList.FindAll(e => (e.City.Equals(place))).Count;
+            return numberOfPersonsFound;
+        }
+        public int findNumberOfPersonsInState(string place)
+        {
+            int numberOfPersonsFound = contactList.FindAll(e => (e.State.Equals(place))).Count;
+            return numberOfPersonsFound;
+        }
     }
 }
 
