@@ -90,7 +90,7 @@ namespace AddressBookSystemProject
                 Console.WriteLine("Contact not found!");
             }
         }
-        public List<String> findPersons(string place)
+        public List<String> findPersonsInCity(string place)
         {
             List<String> personsFounded = new List<string>();
             foreach (Contacts contact in contactList.FindAll(e => (e.City.Equals(place))).ToList())
@@ -105,6 +105,16 @@ namespace AddressBookSystemProject
                     string name = contact.FirstName + " " + contact.LastName;
                     personsFounded.Add(name);
                 }
+            }
+            return personsFounded;
+        }
+        public List<String> findPersonsInState(string place)
+        {
+            List<String> personsFounded = new List<string>();
+            foreach (Contacts contact in contactList.FindAll(e => (e.State.Equals(place))).ToList())
+            {
+                string name = contact.FirstName + " " + contact.LastName;
+                personsFounded.Add(name);
             }
             return personsFounded;
         }

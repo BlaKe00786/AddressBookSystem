@@ -36,21 +36,66 @@ namespace AddressBookSystemProject
             string firstNameOfContactToBeDeleted = Console.ReadLine();
             addressBookDict[deleteContactInAddressBook].DeleteContact(firstNameOfContactToBeDeleted);
             addressBookDict[deleteContactInAddressBook].DisplayContacts();
-            Console.WriteLine("Enter the city or state where you want to find the persons");
+            Console.WriteLine("Press c for city or s for state");
+            string place = Console.ReadLine();
+            place = place.ToLower();
+            Console.WriteLine("Enter name of place");
             String findPlace = Console.ReadLine();
+            Dictionary<string, List<string>> dictionaryCity = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> dictionaryState = new Dictionary<string, List<string>>();
             foreach (var element in addressBookDict)
             {
-                List<String> listOfPersonsinPlace = element.Value.findPersons(findPlace);
-                if (listOfPersonsinPlace.Count == 0)
+                List<String> listOfPersonsinPlace = new List<string>();
+                if (place.Equals("c"))
                 {
-                    Console.WriteLine("No Person in that city/state for address book " + element.Key);
+                    listOfPersonsinPlace = element.Value.findPersonsInCity(findPlace);
+                    foreach (var name in listOfPersonsinPlace)
+                    {
+                        if (!dictionaryCity.ContainsKey(findPlace))
+                        {
+                            List<string> list = new List<string>();
+                            list.Add(name);
+                            dictionaryCity.Add(findPlace, list);
+                        }
+                        else
+                            dictionaryCity[findPlace].Add(name);
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Persons in that city/state for address book " + element.Key + " :-");
+                    listOfPersonsinPlace = element.Value.findPersonsInState(findPlace);
                     foreach (var name in listOfPersonsinPlace)
                     {
-                        Console.WriteLine(name);
+                        if (!dictionaryState.ContainsKey(findPlace))
+                        {
+                            List<string> list = new List<string>();
+                            list.Add(name);
+                            dictionaryState.Add(findPlace, list);
+                        }
+                        else
+                            dictionaryState[findPlace].Add(name);
+                    }
+                }
+            }
+            if (dictionaryCity.Count != 0)
+            {
+                Console.WriteLine("Persons in the city :-");
+                foreach (var mapElement in dictionaryCity)
+                {
+                    foreach (var listElement in mapElement.Value)
+                    {
+                        Console.WriteLine(listElement);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Persons in the state :-");
+                foreach (var mapElement in dictionaryState)
+                {
+                    foreach (var listElement in mapElement.Value)
+                    {
+                        Console.WriteLine(listElement);
                     }
                 }
             }
