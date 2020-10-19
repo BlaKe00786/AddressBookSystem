@@ -6,7 +6,7 @@ namespace AddressBookSystemProject
 {
     class Contacts
     {
-        public string FirstName;
+        public string FirstName { get; set; }
         public string LastName;
         public string Address;
         public string City;

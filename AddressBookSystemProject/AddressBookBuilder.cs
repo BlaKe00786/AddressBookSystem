@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AddressBookSystemProject
@@ -13,8 +14,21 @@ namespace AddressBookSystemProject
         }
         public void AddContact(string FirstName, string LastName, string Address, string City, string State, string Zip, string PhoneNumber, string Email)
         {
-            Contacts contact = new Contacts(FirstName,LastName,Address,City,State,Zip,PhoneNumber,Email);
-            dictionary.Add(FirstName,contact);
+            bool duplicate = equals(FirstName);
+            if (!duplicate)
+            {
+                Contacts contact = new Contacts(FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email);
+                dictionary.Add(FirstName, contact);
+            }
+            else
+                Console.WriteLine("Cannot add duplicate Contact first name");
+        }
+        private bool equals(string firstName)
+        {
+            if (this.dictionary.Any(e => e.Key == firstName))
+                return true;
+            else
+                return false;
         }
         public void DisplayContacts()
         {
