@@ -7,10 +7,10 @@ namespace AddressBookSystemProject
 {
     class AddressBookBuilder : IContacts
     {
-        public Dictionary<string, Contacts> dictionary;
+        public List<Contacts> contactList;
         public AddressBookBuilder()
         {
-            this.dictionary = new Dictionary<string, Contacts>();
+            this.contactList = new List<Contacts>();
         }
         public void AddContact(string FirstName, string LastName, string Address, string City, string State, string Zip, string PhoneNumber, string Email)
         {
@@ -18,54 +18,54 @@ namespace AddressBookSystemProject
             if (!duplicate)
             {
                 Contacts contact = new Contacts(FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email);
-                dictionary.Add(FirstName, contact);
+                contactList.Add(contact);
             }
             else
                 Console.WriteLine("Cannot add duplicate Contact first name");
         }
         private bool equals(string firstName)
         {
-            if (this.dictionary.Any(e => e.Key == firstName))
+            if (this.contactList.Any(e => e.FirstName == firstName))
                 return true;
             else
                 return false;
         }
         public void DisplayContacts()
         {
-            foreach (KeyValuePair<string, Contacts> dict in dictionary)
+            foreach (Contacts contact in contactList)
             {
-                Console.WriteLine("First Name : " + dict.Value.FirstName);
-                Console.WriteLine("Last Name : " + dict.Value.LastName);
-                Console.WriteLine("Address : " + dict.Value.Address);
-                Console.WriteLine("City : " + dict.Value.City);
-                Console.WriteLine("State : " + dict.Value.State);
-                Console.WriteLine("Zip : " + dict.Value.Zip);
-                Console.WriteLine("Phone Number : " + dict.Value.PhoneNumber);
-                Console.WriteLine("Email : " + dict.Value.Email);
+                Console.WriteLine("First Name : " + contact.FirstName);
+                Console.WriteLine("Last Name : " + contact.LastName);
+                Console.WriteLine("Address : " + contact.Address);
+                Console.WriteLine("City : " + contact.City);
+                Console.WriteLine("State : " + contact.State);
+                Console.WriteLine("Zip : " + contact.Zip);
+                Console.WriteLine("Phone Number : " + contact.PhoneNumber);
+                Console.WriteLine("Email : " + contact.Email);
             }
         }
         public void EditContact(string FirstName)
         {
             int flag = 1;
-            foreach (KeyValuePair<string, Contacts> dict in dictionary)
+            foreach (Contacts contact in contactList)
             {
-                if(FirstName.Equals(dict.Key))
+                if(FirstName.Equals(contact.FirstName))
                 {
                     flag = 0;
                     Console.WriteLine("Enter Last Name : ");
-                    dict.Value.LastName = Console.ReadLine();
+                    contact.LastName = Console.ReadLine();
                     Console.WriteLine("Enter Address: ");
-                    dict.Value.Address = Console.ReadLine();
+                    contact.Address = Console.ReadLine();
                     Console.WriteLine("Enter City : ");
-                    dict.Value.City = Console.ReadLine();
+                    contact.City = Console.ReadLine();
                     Console.WriteLine("Enter State : ");
-                    dict.Value.State = Console.ReadLine();
+                    contact.State = Console.ReadLine();
                     Console.WriteLine("Enter Zip code : ");
-                    dict.Value.Zip = Console.ReadLine();
+                    contact.Zip = Console.ReadLine();
                     Console.WriteLine("Enter Phone Number : ");
-                    dict.Value.PhoneNumber = Console.ReadLine();
+                    contact.PhoneNumber = Console.ReadLine();
                     Console.WriteLine("Enter Email : ");
-                    dict.Value.Email = Console.ReadLine();
+                    contact.Email = Console.ReadLine();
                 }
             }
             if(flag==1)
@@ -76,12 +76,12 @@ namespace AddressBookSystemProject
         public void DeleteContact(string FirstName)
         {
             int flag = 1;
-            foreach (KeyValuePair<string, Contacts> dict in dictionary)
+            foreach (Contacts contact in contactList)
             {
-                if (FirstName.Equals(dict.Key))
+                if (FirstName.Equals(contact.FirstName))
                 {
                     flag = 0;
-                    dictionary.Remove(FirstName);
+                    contactList.Remove(contact);
                     Console.WriteLine("Successfully Deleted!");
                 }
             }
@@ -90,5 +90,24 @@ namespace AddressBookSystemProject
                 Console.WriteLine("Contact not found!");
             }
         }
+        public List<String> findPersons(string place)
+        {
+            List<String> personsFounded = new List<string>();
+            foreach (Contacts contact in contactList.FindAll(e => (e.City.Equals(place))).ToList())
+            {
+                string name = contact.FirstName + " " + contact.LastName;
+                personsFounded.Add(name);
+            }
+            if (personsFounded.Count == 0)
+            {
+                foreach (Contacts contact in contactList.FindAll(e => (e.State.Equals(place))).ToList())
+                {
+                    string name = contact.FirstName + " " + contact.LastName;
+                    personsFounded.Add(name);
+                }
+            }
+            return personsFounded;
+        }
     }
 }
+
