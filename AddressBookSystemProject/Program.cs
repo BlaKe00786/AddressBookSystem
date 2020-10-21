@@ -8,6 +8,7 @@ namespace AddressBookSystemProject
         {
             Dictionary<string, AddressBookBuilder> addressBookDict = new Dictionary<string, AddressBookBuilder>();
             int countOfPersonsInState=0, countOfPersonsInCity=0;
+            string repeat = "yes";
             Console.WriteLine("How many address Book you want to add");
             int numAddressBook = Convert.ToInt32(Console.ReadLine());
             for (int i = 1; i <= numAddressBook; i++)
@@ -17,93 +18,121 @@ namespace AddressBookSystemProject
                 AddressBookBuilder addressBook = new AddressBookBuilder();
                 addressBookDict.Add(addressBookName, addressBook);
             }
-            Console.WriteLine("Enter Address Book name where you want to add contacts");
-            string addContactInAddressBook = Console.ReadLine();
-            Console.WriteLine("Enter how many contacts you want to add");
-            int number = Convert.ToInt32(Console.ReadLine());
-            for (int i = 1; i <= number; i++)
+            do
             {
-                takeInputAndAddToContacts(addressBookDict[addContactInAddressBook]);
-            }
-            addressBookDict[addContactInAddressBook].DisplayContacts();
-            Console.WriteLine("Enter Address Book name where you want to edit contact");
-            string editContactInAddressBook = Console.ReadLine();
-            Console.WriteLine("Enter FirstName of Contact to be edited");
-            string firstNameOfContactToBeEdited = Console.ReadLine();
-            addressBookDict[editContactInAddressBook].EditContact(firstNameOfContactToBeEdited);
-            Console.WriteLine("Enter Address Book name where you want to delete contact");
-            string deleteContactInAddressBook = Console.ReadLine();
-            Console.WriteLine("Enter FirstName of Contact to be deleted");
-            string firstNameOfContactToBeDeleted = Console.ReadLine();
-            addressBookDict[deleteContactInAddressBook].DeleteContact(firstNameOfContactToBeDeleted);
-            addressBookDict[deleteContactInAddressBook].DisplayContacts();
-            Console.WriteLine("Press c for city or s for state");
-            string place = Console.ReadLine();
-            place = place.ToLower();
-            Console.WriteLine("Enter name of place");
-            String findPlace = Console.ReadLine();
-            Dictionary<string, List<string>> dictionaryCity = new Dictionary<string, List<string>>();
-            Dictionary<string, List<string>> dictionaryState = new Dictionary<string, List<string>>();
-            foreach (var element in addressBookDict)
-            {
-                List<String> listOfPersonsinPlace = new List<string>();
-                if (place.Equals("c"))
+                Console.WriteLine("1.Add Contact \n2.Edit Contact \n3.Delete Contact \n4.Search Contact \n5.Display Contacts \n6.exit \nEnter your Choice:");
+                int choice = Convert.ToInt32(Console.ReadLine());
+                switch (choice)
                 {
-                    listOfPersonsinPlace = element.Value.findPersonsInCity(findPlace);
-                    countOfPersonsInCity += element.Value.findNumberOfPersonsInCity(findPlace);
-                    foreach (var name in listOfPersonsinPlace)
-                    {
-                        if (!dictionaryCity.ContainsKey(findPlace))
+                    case 1:
+                        Console.WriteLine("Enter Address Book name where you want to add contacts");
+                        string addContactInAddressBook = Console.ReadLine();
+                        Console.WriteLine("Enter how many contacts you want to add");
+                        int numberOfContacts = Convert.ToInt32(Console.ReadLine());
+                        for (int i = 1; i <= numberOfContacts; i++)
                         {
-                            List<string> list = new List<string>();
-                            list.Add(name);
-                            dictionaryCity.Add(findPlace, list);
+                            takeInputAndAddToContacts(addressBookDict[addContactInAddressBook]);
+                        }
+                        addressBookDict[addContactInAddressBook].DisplayContacts();
+                        break;
+                    case 2:
+                        Console.WriteLine("Enter Address Book name where you want to edit contact");
+                        string editContactInAddressBook = Console.ReadLine();
+                        Console.WriteLine("Enter FirstName of Contact to be edited");
+                        string firstNameOfContactToBeEdited = Console.ReadLine();
+                        addressBookDict[editContactInAddressBook].EditContact(firstNameOfContactToBeEdited);
+                        addressBookDict[editContactInAddressBook].DisplayContacts();
+                        break;
+                    case 3:
+                        Console.WriteLine("Enter Address Book name where you want to delete contact");
+                        string deleteContactInAddressBook = Console.ReadLine();
+                        Console.WriteLine("Enter FirstName of Contact to be deleted");
+                        string firstNameOfContactToBeDeleted = Console.ReadLine();
+                        addressBookDict[deleteContactInAddressBook].DeleteContact(firstNameOfContactToBeDeleted);
+                        addressBookDict[deleteContactInAddressBook].DisplayContacts();
+                        break;
+                    case 4:
+                        Console.WriteLine("Press c for city or s for state");
+                        string place = Console.ReadLine();
+                        place = place.ToLower();
+                        Console.WriteLine("Enter name of place");
+                        String findPlace = Console.ReadLine();
+                        Dictionary<string, List<string>> dictionaryCity = new Dictionary<string, List<string>>();
+                        Dictionary<string, List<string>> dictionaryState = new Dictionary<string, List<string>>();
+                        foreach (var element in addressBookDict)
+                        {
+                            List<String> listOfPersonsinPlace = new List<string>();
+                            if (place.Equals("c"))
+                            {
+                                listOfPersonsinPlace = element.Value.findPersonsInCity(findPlace);
+                                countOfPersonsInCity += element.Value.findNumberOfPersonsInCity(findPlace);
+                                foreach (var name in listOfPersonsinPlace)
+                                {
+                                    if (!dictionaryCity.ContainsKey(findPlace))
+                                    {
+                                        List<string> list = new List<string>();
+                                        list.Add(name);
+                                        dictionaryCity.Add(findPlace, list);
+                                    }
+                                    else
+                                        dictionaryCity[findPlace].Add(name);
+                                }
+                            }
+                            else
+                            {
+                                listOfPersonsinPlace = element.Value.findPersonsInState(findPlace);
+                                countOfPersonsInState += element.Value.findNumberOfPersonsInState(findPlace);
+                                foreach (var name in listOfPersonsinPlace)
+                                {
+                                    if (!dictionaryState.ContainsKey(findPlace))
+                                    {
+                                        List<string> list = new List<string>();
+                                        list.Add(name);
+                                        dictionaryState.Add(findPlace, list);
+                                    }
+                                    else
+                                        dictionaryState[findPlace].Add(name);
+                                }
+                            }
+                        }
+                        if (dictionaryCity.Count != 0)
+                        {
+                            Console.WriteLine("Persons in the city :-");
+                            foreach (var mapElement in dictionaryCity)
+                            {
+                                foreach (var listElement in mapElement.Value)
+                                {
+                                    Console.WriteLine(listElement);
+                                }
+                            }
                         }
                         else
-                            dictionaryCity[findPlace].Add(name);
-                    }
-                }
-                else
-                {
-                    listOfPersonsinPlace = element.Value.findPersonsInState(findPlace);
-                    countOfPersonsInState += element.Value.findNumberOfPersonsInState(findPlace);
-                    foreach (var name in listOfPersonsinPlace)
-                    {
-                        if (!dictionaryState.ContainsKey(findPlace))
                         {
-                            List<string> list = new List<string>();
-                            list.Add(name);
-                            dictionaryState.Add(findPlace, list);
+                            Console.WriteLine("Persons in the state :-");
+                            foreach (var mapElement in dictionaryState)
+                            {
+                                foreach (var listElement in mapElement.Value)
+                                {
+                                    Console.WriteLine(listElement);
+                                }
+                            }
                         }
-                        else
-                            dictionaryState[findPlace].Add(name);
-                    }
+                        Console.WriteLine("No. of person in city: " + countOfPersonsInCity);
+                        Console.WriteLine("No. of person in state: " + countOfPersonsInState);
+                        break;
+                    case 5:
+                        Console.WriteLine("Enter Address Book name to display contacts");
+                        string displayContactInAddressBook = Console.ReadLine();
+                        addressBookDict[displayContactInAddressBook].DisplayContacts();
+                        break;
+                    case 6:
+                        repeat = "no";
+                        break;
+                    default:
+                        Console.WriteLine("Please enter valid choice");
+                        break;
                 }
-            }
-            if (dictionaryCity.Count != 0)
-            {
-                Console.WriteLine("Persons in the city :-");
-                foreach (var mapElement in dictionaryCity)
-                {
-                    foreach (var listElement in mapElement.Value)
-                    {
-                        Console.WriteLine(listElement);
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("Persons in the state :-");
-                foreach (var mapElement in dictionaryState)
-                {
-                    foreach (var listElement in mapElement.Value)
-                    {
-                        Console.WriteLine(listElement);
-                    }
-                }
-            }
-            Console.WriteLine("No. of person in city: " + countOfPersonsInCity);
-            Console.WriteLine("No. of person in city: " + countOfPersonsInState);
+            } while (repeat.Equals("yes"));
         }
         public static void takeInputAndAddToContacts(AddressBookBuilder addressBook)
         {

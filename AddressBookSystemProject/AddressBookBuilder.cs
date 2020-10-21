@@ -83,6 +83,7 @@ namespace AddressBookSystemProject
                     flag = 0;
                     contactList.Remove(contact);
                     Console.WriteLine("Successfully Deleted!");
+                    break;
                 }
             }
             if(flag==1)
