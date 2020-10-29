@@ -20,7 +20,7 @@ namespace AddressBookSystemProject
             }
             do
             {
-                Console.WriteLine("1.Add Contact \n2.Edit Contact \n3.Delete Contact \n4.Search Contact \n5.Display Contacts \n6.Sort \n7.exit \nEnter your Choice:");
+                Console.WriteLine("1.Add Contact \n2.Edit Contact \n3.Delete Contact \n4.Search Contact \n5.Display Contacts \n6.Sort by First name \n7.Sort by Zip \n8.Sort by City \n9.Sort by State \n10.exit \nEnter your Choice:");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
                 {
@@ -128,9 +128,24 @@ namespace AddressBookSystemProject
                     case 6:
                         Console.WriteLine("Enter Address Book name to sort contacts");
                         string sortContactInAddressBook = Console.ReadLine();
-                        addressBookDict[sortContactInAddressBook].sort();
+                        addressBookDict[sortContactInAddressBook].sortByFirstName();
                         break;
                     case 7:
+                        Console.WriteLine("Enter Address Book name to sort contacts");
+                        string sortByZipInAddressBook = Console.ReadLine();
+                        addressBookDict[sortByZipInAddressBook].sortByZip();
+                        break;
+                    case 8:
+                        Console.WriteLine("Enter Address Book name to sort contacts");
+                        string sortByCityInAddressBook = Console.ReadLine();
+                        addressBookDict[sortByCityInAddressBook].sortByCity();
+                        break;
+                    case 9:
+                        Console.WriteLine("Enter Address Book name to sort contacts");
+                        string sortByStateInAddressBook = Console.ReadLine();
+                        addressBookDict[sortByStateInAddressBook].SortByState();
+                        break;
+                    case 10:
                         repeat = "no";
                         break;
                     default:

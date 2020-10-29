@@ -129,18 +129,44 @@ namespace AddressBookSystemProject
             int numberOfPersonsFound = contactList.FindAll(e => (e.State.Equals(place))).Count;
             return numberOfPersonsFound;
         }
-        public void sort()
+        public void sortByFirstName()
         {
             List<string> sortList = new List<string>();
-            foreach (Contacts c in contactList)
+            foreach (Contacts contact in contactList)
             {
-                string sort = c.ToString();
+                string sort = contact.ToString();
                 sortList.Add(sort);
             }
             sortList.Sort();
-            foreach (string s in sortList)
+            foreach (string entry in sortList)
             {
-                Console.WriteLine(s);
+                Console.WriteLine(entry);
+            }
+        }
+        public void sortByZip()
+        {
+            contactList.Sort(new Comparison<Contacts>((x, y) => string.Compare(x.Zip, y.Zip)));
+            foreach (Contacts contact in contactList)
+            {
+                Console.WriteLine(contact.FirstName + "\n" + contact.LastName + "\n" + contact.Address + "\n" + contact.City + "\n" + contact.State + "\n" + contact.Zip + "\n" + contact.PhoneNumber + "\n" + contact.Email);
+            }
+
+        }
+        public void sortByCity()
+        {
+            contactList.Sort(new Comparison<Contacts>((x, y) => string.Compare(x.City, y.City)));
+            foreach (Contacts contact in contactList)
+            {
+                Console.WriteLine(contact.FirstName + "\n" + contact.LastName + "\n" + contact.Address + "\n" + contact.City + "\n" + contact.State + "\n" + contact.Zip + "\n" + contact.PhoneNumber + "\n" + contact.Email);
+            }
+
+        }
+        public void SortByState()
+        {
+            contactList.Sort(new Comparison<Contacts>((x, y) => string.Compare(x.State, y.State)));
+            foreach (Contacts contact in contactList)
+            {
+                Console.WriteLine(contact.FirstName + "\n" + contact.LastName + "\n" + contact.Address + "\n" + contact.City + "\n" + contact.State + "\n" + contact.Zip + "\n" + contact.PhoneNumber + "\n" + contact.Email);
             }
         }
     }
