@@ -20,7 +20,7 @@ namespace AddressBookSystemProject
             }
             do
             {
-                Console.WriteLine("1.Add Contact \n2.Edit Contact \n3.Delete Contact \n4.Search Contact \n5.Display Contacts \n6.exit \nEnter your Choice:");
+                Console.WriteLine("1.Add Contact \n2.Edit Contact \n3.Delete Contact \n4.Search Contact \n5.Display Contacts \n6.Sort \n7.exit \nEnter your Choice:");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
                 {
@@ -126,6 +126,11 @@ namespace AddressBookSystemProject
                         addressBookDict[displayContactInAddressBook].DisplayContacts();
                         break;
                     case 6:
+                        Console.WriteLine("Enter Address Book name to sort contacts");
+                        string sortContactInAddressBook = Console.ReadLine();
+                        addressBookDict[sortContactInAddressBook].sort();
+                        break;
+                    case 7:
                         repeat = "no";
                         break;
                     default:
