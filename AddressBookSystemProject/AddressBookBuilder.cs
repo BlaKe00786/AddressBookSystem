@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AddressBookSystemProject
 {
-    class AddressBookBuilder : IContacts
+   public class AddressBookBuilder : IContacts
     {
         public List<Contacts> contactList;
         public AddressBookBuilder()
@@ -168,6 +168,14 @@ namespace AddressBookSystemProject
             {
                 Console.WriteLine(contact.FirstName + "\n" + contact.LastName + "\n" + contact.Address + "\n" + contact.City + "\n" + contact.State + "\n" + contact.Zip + "\n" + contact.PhoneNumber + "\n" + contact.Email);
             }
+        }
+        public void storeInTxt()
+        {
+            FileIO.WriteFile(contactList);
+        }
+        public void readFromTxt()
+        {
+            FileIO.ReadFile();
         }
     }
 }

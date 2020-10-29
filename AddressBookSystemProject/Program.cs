@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Permissions;
+
 namespace AddressBookSystemProject
 {
     class AddressBookMain
@@ -20,7 +22,7 @@ namespace AddressBookSystemProject
             }
             do
             {
-                Console.WriteLine("1.Add Contact \n2.Edit Contact \n3.Delete Contact \n4.Search Contact \n5.Display Contacts \n6.Sort by First name \n7.Sort by Zip \n8.Sort by City \n9.Sort by State \n10.exit \nEnter your Choice:");
+                Console.WriteLine("1.Add Contact \n2.Edit Contact \n3.Delete Contact \n4.Search Contact \n5.Display Contacts \n6.Sort by First name \n7.Sort by Zip \n8.Sort by City \n9.Sort by State \n10.Write in txt \n11.Read in txt \n12.exit \nEnter your Choice:");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
                 {
@@ -146,6 +148,16 @@ namespace AddressBookSystemProject
                         addressBookDict[sortByStateInAddressBook].SortByState();
                         break;
                     case 10:
+                        Console.WriteLine("Enter Address Book name to store contacts");
+                        string storeAddressBook = Console.ReadLine();
+                        addressBookDict[storeAddressBook].storeInTxt();
+                        break;
+                    case 11:
+                        Console.WriteLine("Enter Address Book name to display contacts");
+                        string readAddressBook = Console.ReadLine();
+                        addressBookDict[readAddressBook].readFromTxt();
+                        break;
+                    case 12:
                         repeat = "no";
                         break;
                     default:
