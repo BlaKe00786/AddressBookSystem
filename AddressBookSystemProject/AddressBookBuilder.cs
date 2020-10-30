@@ -185,6 +185,14 @@ namespace AddressBookSystemProject
         {
             FileIO.ReadCSV();
         }
+        public void storeInJson()
+        {
+            FileIO.WriteJson(contactList);
+        }
+        public void readFromJson()
+        {
+            FileIO.ReadJson();
+        }
     }
 }
 

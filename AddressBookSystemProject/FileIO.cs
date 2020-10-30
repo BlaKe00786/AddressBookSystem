@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -74,13 +75,52 @@ namespace AddressBookSystemProject
                     }
                     streamWriter.Close();
                 }
-                Console.ReadKey();
             }
             else
             {
                 Console.WriteLine("No file");
             }
         }
-    
+        public static void ReadJson()
+        {
+            string filePath = @"C:\Users\samee\source\repos\AddressBookSystem\AddressBookSystemProject\Utilities\Contacts.json";
+            if (File.Exists(filePath))
+            {
+                IList<Contacts> contactsRead = JsonConvert.DeserializeObject<IList<Contacts>>(File.ReadAllText(filePath));
+                foreach (Contacts contact in contactsRead)
+                {
+                    Console.Write(contact.FirstName);
+                    Console.Write("\t" + contact.LastName);
+                    Console.Write("\t" + contact.Address);
+                    Console.Write("\t" + contact.City);
+                    Console.Write("\t" + contact.State);
+                    Console.Write("\t" + contact.Zip);
+                    Console.Write("\t" + contact.PhoneNumber);
+                    Console.Write("\t" + contact.Email);
+                    Console.Write("\n");
+                }
+            }
+            else
+            {
+                Console.WriteLine("File doesn't exists");
+            }
+        }
+        public static void WriteJson(List<Contacts> data)
+        {
+            string filePath = @"C:\Users\samee\source\repos\AddressBookSystem\AddressBookSystemProject\Utilities\Contacts.json";
+            if (File.Exists(filePath))
+            {
+                JsonSerializer jsonSerializer = new JsonSerializer();
+                using (StreamWriter streamWriter = new StreamWriter(filePath))
+                using (JsonWriter writer = new JsonTextWriter(streamWriter))
+                {
+                    jsonSerializer.Serialize(writer, data);
+                }
+            }
+            else
+            {
+                Console.WriteLine("File doesn't exists");
+            }
+        }
     }
 }
