@@ -22,7 +22,7 @@ namespace AddressBookSystemProject
             }
             do
             {
-                Console.WriteLine("1.Add Contact \n2.Edit Contact \n3.Delete Contact \n4.Search Contact \n5.Display Contacts \n6.Sort by First name \n7.Sort by Zip \n8.Sort by City \n9.Sort by State \n10.Write in txt \n11.Read in txt \n12.exit \nEnter your Choice:");
+                Console.WriteLine("1.Add Contact \n2.Edit Contact \n3.Delete Contact \n4.Search Contact \n5.Display Contacts \n6.Sort by First name \n7.Sort by Zip \n8.Sort by City \n9.Sort by State \n10.Write in txt \n11.Read from txt \n12.Write in CSV \n13.Read from CSV \n14.exit \nEnter your Choice:");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
                 {
@@ -158,6 +158,16 @@ namespace AddressBookSystemProject
                         addressBookDict[readAddressBook].readFromTxt();
                         break;
                     case 12:
+                        Console.WriteLine("Enter Address Book name to store contacts");
+                        string storeCsvAddressBook = Console.ReadLine();
+                        addressBookDict[storeCsvAddressBook].storeInCsv();
+                        break;
+                    case 13:
+                        Console.WriteLine("Enter Address Book name to display contacts");
+                        string readCsvAddressBook = Console.ReadLine();
+                        addressBookDict[readCsvAddressBook].readFromCsv();
+                        break;
+                    case 14:
                         repeat = "no";
                         break;
                     default:

@@ -177,6 +177,14 @@ namespace AddressBookSystemProject
         {
             FileIO.ReadFile();
         }
+        public void storeInCsv()
+        {
+            FileIO.WriteCSV(contactList);
+        }
+        public void readFromCsv()
+        {
+            FileIO.ReadCSV();
+        }
     }
 }
 
